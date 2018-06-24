@@ -20,7 +20,7 @@
                     pos: self.pos
                     size: self.size
             Label:
-                id: naleznyLabel
+                id: naleznylabel
                 text: 'Podatek nalezny: ' + str(root.sumNalezny)
                 text_size: self.size
                 halign: 'left'
@@ -28,7 +28,7 @@
                 color: [1,1,0,1]
                 bold: True
             Label:
-                id: naliczonyLabel
+                id: naliczonylabel
                 text: 'Podatek naliczony: ' + str(root.sumNaliczony)
                 text_size: self.size
                 halign: 'left'
@@ -42,8 +42,8 @@
                 Button:
                     text: u'Dodaj do sum'
                     size_hint: 0.2, 1
-                    on_release: root.getSum(filechooser.selection, naliczonyLabel, naleznyLabel)
+                    on_release: root.get_sum(filechooser.selection, naliczonylabel, naleznylabel)
                 Button:
                     text: u'Zresetuj sumy'
                     size_hint: 0.2, 1
-                    on_release: root.resetSum(naliczonyLabel, naleznyLabel)
+                    on_release: root.reset_sum(naliczonylabel, naleznylabel)

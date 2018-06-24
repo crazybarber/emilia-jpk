@@ -1,15 +1,13 @@
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from xml.etree import ElementTree
-from kivy.core.window import Window
-
 
 
 class WeryfikatorJpk(BoxLayout):
     sumNaliczony = 0
     sumNalezny = 0
 
-    def getSum(self, files, naliczony_label, nalezny_label):
+    def get_sum(self, files, naliczony_label, nalezny_label):
         ns = {'tns': 'http://jpk.mf.gov.pl/wzor/2017/11/13/1113/',
               'xsi': 'http://www.w3.org/2001/XMLSchema',
               'etd': 'http://crd.gov.pl/xml/schematy/dziedzinowe/mf/2016/01/25/eD/DefinicjeTypy/'}
@@ -28,16 +26,14 @@ class WeryfikatorJpk(BoxLayout):
             print('File ' + files[0] + ' is not a valid JPK xml file')
             return
 
-        self.sumNaliczony = self.sumNaliczony + naliczony
-        self.sumNalezny = self.sumNalezny + nalezny
-        naliczony_label.text = 'Podatek naliczony: %.2f' % self.sumNaliczony
-        naliczony_label.texture_update()
-        nalezny_label.text = 'Podatek nalezny: %.2f' % self.sumNalezny
-        nalezny_label.texture_update()
+        self.__set_labels(self.sumNaliczony + naliczony, self.sumNalezny + nalezny, naliczony_label, nalezny_label)
 
-    def resetSum(self, naliczony_label, nalezny_label):
-        self.sumNalezny = 0
-        self.sumNaliczony = 0
+    def reset_sum(self, naliczony_label, nalezny_label):
+        self.__set_labels(0, 0, naliczony_label, nalezny_label)
+
+    def __set_labels(self, naliczony, nalezny, naliczony_label, nalezny_label):
+        self.sumNalezny = naliczony
+        self.sumNaliczony = nalezny
         naliczony_label.text = 'Podatek naliczony: %.2f' % self.sumNaliczony
         naliczony_label.texture_update()
         nalezny_label.text = 'Podatek nalezny: %.2f' % self.sumNalezny
