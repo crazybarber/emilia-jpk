@@ -1,0 +1,49 @@
+#:kivy 1.1.0
+
+<WeryfikatorJpk>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [10,0,10,10]
+        spacing: 5
+        FileChooserListView:
+            id: filechooser
+            filters: ['*.xml']
+            size_hint: 1, 0.7
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [10,0,10,10]
+            size_hint: 1, 0.3
+            canvas:
+                Color:
+                    rgb: .2, .2, .2, 0.1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                id: naleznyLabel
+                text: 'Podatek nalezny: ' + str(root.sumNalezny)
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                color: [1,1,0,1]
+                bold: True
+            Label:
+                id: naliczonyLabel
+                text: 'Podatek naliczony: ' + str(root.sumNaliczony)
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+                color: [1,1,0,1]
+                bold: True
+            BoxLayout:
+                orientation: 'horizontal'
+                padding: [10,10,10,10]
+                spacing: 5
+                Button:
+                    text: u'Dodaj do sum'
+                    size_hint: 0.2, 1
+                    on_release: root.getSum(filechooser.selection, naliczonyLabel, naleznyLabel)
+                Button:
+                    text: u'Zresetuj sumy'
+                    size_hint: 0.2, 1
+                    on_release: root.resetSum(naliczonyLabel, naleznyLabel)
